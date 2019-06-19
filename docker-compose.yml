@@ -1,0 +1,8 @@
+version: "3.3"
+services:
+  grpc:
+    build:
+        context: .
+    image: grpc-api
+    ports:
+       - "50021:50021"
