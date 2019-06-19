@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+package stdmetadatapb;
+
+message StdRequest {
+    string title = 1;
+    string description = 2;
+    int64 contract_id = 3;
+}
+
+message StdMetadataResponse {
+    string status = 1;
+    int64 position_category_id = 2;
+    string locale = 3;
+    int64 contract_duration_id = 4;
+}
+
+service StdMetadata {
+    rpc GetStdMetadata(StdRequest) returns (StdMetadataResponse) {} ;
+}
+/*
+responses:
+        200:
+          description: Classified offers
+          schema:
+            type: object
+            required:
+            - status
+            - position_category_id
+            - locale
+            - contract_duration_id
+            properties:
+              status:
+                type: string
+                enum: [success]
+              position_category_id:
+                type: integer
+              locale:
+                type: string
+                example: 'fr'
+                enum: ['fr', 'en', 'de', 'it', 'es', 'nl', 'pt', 'pl', 'ca']
+              contract_duration_id:
+                type: integer
+        500:
+          description: No classification was computed
+          schema:
+            type: object
+            required:
+            - status
+            - message
+            properties:
+              status:
+                type: string
+                enum: [error]
+              message:
+                type: string
+                example: "No classification was computed for this offer : {title}"
+        422:
+          description: Bad input parameter
+          schema:
+            type: object
+            required:
+            - status
+            - message
+            properties:
+              status:
+                type: string
+                enum: [error]
+              message:
+                properties:
+                  title:
+                    type: string
+                    enum: [Missing data for required field.]
+                  description:
+                    type: string
+                    enum: [Missing data for required field.]
+                  contract_id:
+                    type: string
+                    enum: [Missing data for required field.]
+                  title_description:
+                    type: string
+                    enum: [Both title and description are empty]
+*/
